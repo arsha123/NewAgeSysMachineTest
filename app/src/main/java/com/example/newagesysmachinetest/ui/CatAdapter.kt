@@ -2,6 +2,7 @@ package com.example.newagesysmachinetest.ui
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newagesysmachinetest.Model.Model
 import com.example.newagesysmachinetest.R
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class CatAdapter(private val context: Context, private var cats: List<Model>) :
@@ -34,7 +36,13 @@ class CatAdapter(private val context: Context, private var cats: List<Model>) :
             holder.image.setImageResource(R.drawable.ic_launcher_background)
         }
         holder.card.setOnClickListener(View.OnClickListener {
-            val intent = Intent(context, DetailActivity::class.java)
+
+            val intent = Intent(context,DetailActivity::class.java)
+            intent.putExtra("title",cat.id)
+            intent.putExtra("date", cat.date)
+            intent.putExtra("explanation", cat.explanation)
+            intent.putExtra("image", cat.url)
+
             context.startActivity(intent)
         })
 
@@ -50,7 +58,7 @@ class CatAdapter(private val context: Context, private var cats: List<Model>) :
     }
 
     class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView
+        var image: CircleImageView
         var date: TextView
         var title: TextView
         var card: ConstraintLayout
